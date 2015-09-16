@@ -40,6 +40,7 @@ function setContent() {
       success: function(data){
                console.log(data.items[0].snippet);
               document.getElementById("title").innerHTML = data.items[0].snippet.title;
+              document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
       },
       error: function(jqXHR, textStatus, errorThrown) {
           alert (textStatus, + ' | ' + errorThrown);
