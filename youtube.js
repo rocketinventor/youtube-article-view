@@ -35,11 +35,11 @@ function setContent() {
   // document.getElementById("link1").text = 
   
   $.ajax({
-      url: "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key="+ key + "&fields=items(snippet(title))&part=snippet", 
+      url: "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key="+ key + "&fields=items(snippet)&part=snippet", 
       dataType: "jsonp",
       success: function(data){
-               document.getElementById("title").innerHTML = data.items[0].snippet.title;
-               console.log(data.items[0].snippet.title);
+               console.log(data.items[0].snippet);
+              document.getElementById("title").innerHTML = data.items[0].snippet.title;
       },
       error: function(jqXHR, textStatus, errorThrown) {
           alert (textStatus, + ' | ' + errorThrown);
