@@ -11,7 +11,7 @@ body
 	font: 1em/1.2 "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6
+h
 {
 	margin: 0 0 .5em;
 	font-weight: 500;
@@ -77,7 +77,6 @@ Layout styles
 {
 	max-width: 50em;
 	margin: 0 auto;
-	background-color: #;
 }
 
 .header
@@ -93,7 +92,6 @@ Layout styles
 {
 	background: gray;
 	padding: 0;
-	di
 }
 
 .content { padding: 1em 1.25em; }
