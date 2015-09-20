@@ -25,6 +25,8 @@ function getContent() {
 function setContent() {
   document.getElementById("content").innerHTML = transcript.textContent;
   document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
+  document.getElementById("img").style = "opacity:0";
+  document.getElementById("img").style.transition = "opacity ease-out  1s";
   // document.getElementById("link1").href = "tittle1"
   // document.getElementById("link1").text = 
   
@@ -36,6 +38,7 @@ function setContent() {
               document.getElementById("title").innerHTML = data.items[0].snippet.title;
               document.title = data.items[0].snippet.title + " (YouTube article view)";
               document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
+              document.getElementById("img").style.opacity="1";
       },
       error: function(jqXHR, textStatus, errorThrown) {
           alert (textStatus, + ' | ' + errorThrown);
