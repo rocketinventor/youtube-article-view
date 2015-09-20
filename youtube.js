@@ -9,6 +9,7 @@ function getContent() {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
     transcript = xhr.responseXML.documentElement;
+    document.getElementById("content").innerHTML = transcript.textContent;
     // transcript = xhr.responseXML;
     setContent();
   };
@@ -23,7 +24,6 @@ function getContent() {
 
 // parse data and update DOM
 function setContent() {
-  document.getElementById("content").innerHTML = transcript.textContent;
   document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
   document.getElementById("img").style = "opacity:0";
   document.getElementById("img").style.transition = "opacity ease-out  1s";
