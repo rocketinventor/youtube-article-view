@@ -14,23 +14,15 @@ function getContent() {
       document.getElementById("title").innerHTML = data.items[0].snippet.title;
       document.title = data.items[0].snippet.title + " (YouTube article view)";
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
-      setContent();
+      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
+      document.getElementById("img").style = "opacity:0";
+      document.getElementById("img").style.transition = "opacity ease-out  1s";
+      document.getElementById("img").style.opacity = "1";
     },
     error: function(jqXHR, textStatus, errorThrown) {
       alert(textStatus, +' | ' + errorThrown);
     }
   });
-  setContent();
-  document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
-  document.getElementById("img").style = "opacity:0";
-  document.getElementById("img").style.transition = "opacity ease-out  1s";
-  document.getElementById("img").style.opacity = "1";
-}
-
-// get data/content/transcript from internet
-function setContent() {
-  // document.getElementById("link1").href = "tittle1"
-  // document.getElementById("link1").text = 
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -45,6 +37,8 @@ function setContent() {
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
+  // document.getElementById("link1").href = "tittle1"
+  // document.getElementById("link1").text = 
 }
 
 //get video id and update variabke
