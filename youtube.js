@@ -1,5 +1,5 @@
 var id; //make video id variable public
-id = "zzfCVBSsvqA"; //set fallback url if no hash
+id = "QGwKge-ivkU"; //set fallback url if no hash
 var transcript; //another public var
 // newURL(); //get url when page loads
 var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y";
