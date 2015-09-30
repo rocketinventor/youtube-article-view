@@ -1,5 +1,6 @@
 var id; //make video id variable public
-id = "QGwKge-ivkU"; //set fallback url if no hash
+var fallbackId =  "QGwKge-ivkU";
+id = fallbackId;//set fallback url if no hash
 var transcript; //another public var
 // newURL(); //get url when page loads
 var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y";
@@ -46,7 +47,7 @@ function newURL() {
   id = window.location.hash.substring(1);
   // if no hash is present, use a fallback video
   if (location.hash == "") {
-    id = "zzfCVBSsvqA";
+    id = fallbackId;
   } //set to a random id if none found
   getContent();
 }
