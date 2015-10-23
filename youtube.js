@@ -7,10 +7,13 @@ var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y";
 
 // parse data and update DOM
 function getContent() {
-  $.ajax({
-    url: "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key=" + key + "&fields=items(snippet)&part=snippet",
-    dataType: "jsonp",
-    success: function(data) {
+  var request = new XMLHttpRequest();
+  request.open('GET', "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key=" + key + "&fields=items(snippet)&part=snippet", true);
+
+  request.onload = function() {
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      var data = JSON.parse(this.response);
       console.log(data.items[0].snippet);
       document.getElementById("title").innerHTML = data.items[0].snippet.title;
       document.title = data.items[0].snippet.title + " (YouTube article view)";
@@ -19,11 +22,19 @@ function getContent() {
       document.getElementById("img").style = "opacity:0";
       document.getElementById("img").style.transition = "opacity ease-out  1s";
       document.getElementById("img").style.opacity = "1";
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      alert(textStatus, +' | ' + errorThrown);
     }
-  });
+    else {
+      // We reached our target server, but it returned an error
+      console.warn("The server responded with an error");
+    }
+  };
+
+  request.onerror = function() {
+    // There was a connection error of some sort
+    console.warn("The server could not be reached");
+  };
+
+  request.send();
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
