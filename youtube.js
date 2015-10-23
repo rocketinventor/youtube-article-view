@@ -1,27 +1,34 @@
-var id; //make video id variable public
-var fallbackId = "QGwKge-ivkU";
-id = fallbackId; //set fallback url if no hash
-var transcript; //another public var
-// newURL(); //get url when page loads
-var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y";
+// Welcome source code readers!
+// This is the main (and only) script.
+// Its job is to fetch data from YouTube and update the page appropriately.
 
-// parse data and update DOM
-function getContent() {
+// YouTube requires an api key, we'll call it "key".
+var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y"; //api key goes here
+
+// We need a fallback id so that there will always be content on this page.
+// In the future it will not be necessary.
+// I randomly chose a video with with subtitles for this purpose.
+var fallbackId = "QGwKge-ivkU";
+
+// update reading view
+function getContent(id) {
   var request = new XMLHttpRequest();
   request.open('GET', "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key=" + key + "&fields=items(snippet)&part=snippet", true);
 
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
-      // Success!
+      // create "data" from parsed response
       var data = JSON.parse(this.response);
       console.log(data.items[0].snippet);
+      // Update the title and give credit to the author
       document.getElementById("title").innerHTML = data.items[0].snippet.title;
       document.title = data.items[0].snippet.title + " (YouTube article view)";
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
-      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg";
-      document.getElementById("img").style = "opacity:0";
-      document.getElementById("img").style.transition = "opacity ease-out  1s";
-      document.getElementById("img").style.opacity = "1";
+      // add the video thumbnail and make it fade in
+      document.getElementById("img").style.transition = "opacity ease-out  1s"; //make sure transition is set
+      document.getElementById("img").style = "opacity:0"; //start at 0% opacity
+      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg"; //change image src
+      document.getElementById("img").style.opacity = "1"; //fade in
     }
     else {
       // We reached our target server, but it returned an error
@@ -34,11 +41,11 @@ function getContent() {
     console.warn("The server could not be reached");
   };
 
-  request.send();
+  request.send(); //send request
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
-    transcript = xhr.responseXML.documentElement;
+    var transcript = xhr.responseXML.documentElement;
     document.getElementById("content").innerHTML = transcript.textContent;
     // transcript = xhr.responseXML;
   };
@@ -49,19 +56,23 @@ function getContent() {
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
-  // document.getElementById("link1").href = "tittle1"
-  // document.getElementById("link1").text = 
+
+  // Show recommended articles
+  // document.querySelector("nav").style.display = "block" //make nav visible;
+  // document.getElementById("link1").href = "tittle1" //set the title for the first link
+  // document.getElementById("link1").text = "/#id1" //set the title for the second link
 }
 
-//get video id and update variabke
+//get video id and update variable
 function newURL() {
-  id = window.location.hash.substring(1);
+  // get video id from hash
+  var id = window.location.hash.substring(1);
   // if no hash is present, use a fallback video
   if (location.hash == "") {
     id = fallbackId;
-  } //set to a random id if none found
-  getContent();
+  }
+  getContent(id);
 }
 
-window.addEventListener("load", newURL);
+window.addEventListener("load", newURL); //run sctipt on load
 window.onhashchange = newURL; //add listener for change in hash
