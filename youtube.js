@@ -1,6 +1,6 @@
 var id; //make video id variable public
-var fallbackId =  "QGwKge-ivkU";
-id = fallbackId;//set fallback url if no hash
+var fallbackId = "QGwKge-ivkU";
+id = fallbackId; //set fallback url if no hash
 var transcript; //another public var
 // newURL(); //get url when page loads
 var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y";
@@ -25,7 +25,7 @@ function getContent() {
     }
     else {
       // We reached our target server, but it returned an error
-      console.warn("The server responded with an error");
+      console.warn("server responded with a " + this.status + " error");
     }
   };
 
