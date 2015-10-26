@@ -1,4 +1,4 @@
-# Youtube Article View, _read_ your YouTube.
+# Youtube Article View, _Read_ Your YouTube.
 
 This app makes it simple to read the closed captioning of any YouTube video that supports closed captioning and, do so in a nicely formatted article view.
 
@@ -12,7 +12,7 @@ Features:
 
 Features (upcoming):
 - Display date posted next to author
-- clicking on author (channel) name opens that channel in a new tab and/or lets you explore it inside YAV
+- Clicking on author (channel) name opens that channel in a new tab and/or lets you explore it inside YAV
 - Recommended articles at top based on tags (with hover-over thumbnails)
 - Fallback to medium or highres thumbnail for videos that don't have a 'maxres' quality thumnail
 - Allow video playback by clicking on thumbnail
