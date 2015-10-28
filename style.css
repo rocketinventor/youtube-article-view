@@ -94,7 +94,10 @@ Layout styles
 	padding: 0;
 }
 
-.content { padding: 1em 1.25em; }
+.content {
+	padding: 1em 1.25em;
+	transition: opacity ease-out  .5s;
+}
 
 .footer
 {
@@ -154,7 +157,11 @@ Nav
 Single styles
 ------------------------*/
 
-.img-responsive { max-width: 100%; }
+.img-responsive {
+	width: 100%;
+	transition: opacity ease-out 1s;
+}
+
 
 .btn
 {

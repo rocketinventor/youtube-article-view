@@ -17,18 +17,28 @@ function getContent(id) {
 
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
-      // create "data" from parsed response
+      // Create "data" from parsed response
       var data = JSON.parse(this.response);
       console.log(data.items[0].snippet);
+      
       // Update the title and give credit to the author
       document.getElementById("title").innerHTML = data.items[0].snippet.title;
       document.title = data.items[0].snippet.title + " (YouTube article view)";
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
-      // add the video thumbnail and make it fade in
-      document.getElementById("img").style.transition = "opacity ease-out  1s"; //make sure transition is set
+      
+      // This part will add the video thumbnail
       document.getElementById("img").style = "opacity:0"; //start at 0% opacity
-      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg"; //change image src
-      document.getElementById("img").style.opacity = "1"; //fade in
+      // // Set 'high' res thumbnail
+      // document.getElementById("img").src = data.items[0].snippet.thumbnails.high.url;
+      // Set 'maxres' thumbnail
+      // document.getElementById("img").src = data.items[0].snippet.thumbnails.maxres.url; //using json, causes js errors if it doesn't exist
+      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg"; //using a generic url string, 404 image if it doesn't exist
+      
+      // Fade in content (and remove placeholder values)
+      document.getElementById("img").style.height = ""; //remove placeholder height
+      document.getElementById("img").style.opacity = "1"; //fade in image
+      document.querySelector(".content").style.display = "block"; //display
+      document.querySelector(".content").style.opacity = "1"; //fade in
     }
     else {
       // We reached our target server, but it returned an error
