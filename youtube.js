@@ -27,7 +27,6 @@ function getContent(id) {
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
       
       // This part will add the video thumbnail
-      document.getElementById("img").style = "opacity:0"; //start at 0% opacity
       // // Set 'high' res thumbnail
       // document.getElementById("img").src = data.items[0].snippet.thumbnails.high.url;
       // Set 'maxres' thumbnail
@@ -36,9 +35,8 @@ function getContent(id) {
       
       // Fade in content (and remove placeholder values)
       document.getElementById("img").style.height = ""; //remove placeholder height
-      document.getElementById("img").style.opacity = "1"; //fade in image
-      document.querySelector(".content").style.display = "block"; //display
-      document.querySelector(".content").style.opacity = "1"; //fade in
+      document.querySelector(".content").style.display = "block"; //unhide content
+      document.querySelector(".content").style.opacity = "1"; //fade it in
     }
     else {
       // We reached our target server, but it returned an error
@@ -52,14 +50,17 @@ function getContent(id) {
   };
 
   request.send(); //send request
+  document.title = "Loading...";
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
+    document.getElementById("content").innerHTML = "No transcript found!"; //in case the next lines cause an error
     var transcript = xhr.responseXML.documentElement;
     document.getElementById("content").innerHTML = transcript.textContent;
     // transcript = xhr.responseXML;
   };
   xhr.onerror = function() {
+    document.getElementById("content").innerHTML = "Error getting transcript"; //in case there is an error
     console.log("Error while getting XML.");
   };
   var url = "https://www.youtube.com/api/timedtext?v=" + id + "&lang=en";
@@ -85,4 +86,9 @@ function newURL() {
 }
 
 window.addEventListener("load", newURL); //run sctipt on load
-window.onhashchange = newURL; //add listener for change in hash
+
+//add listener for change in hash
+window.onhashchange = function () {
+  newURL();
+  document.querySelector(".content").style.opacity = "0.1"; //fade out old content
+};

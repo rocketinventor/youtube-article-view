@@ -96,7 +96,7 @@ Layout styles
 
 .content {
 	padding: 1em 1.25em;
-	transition: opacity ease-out  .5s;
+	transition: opacity ease-out  .75s;
 }
 
 .footer
@@ -159,7 +159,7 @@ Single styles
 
 .img-responsive {
 	width: 100%;
-	transition: opacity ease-out 1s;
+	transition: opacity ease-out 1.75s;
 }
 
 
