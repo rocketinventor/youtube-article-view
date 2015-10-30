@@ -28,11 +28,16 @@ function getContent(id) {
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
       
       // This part will add the video thumbnail
-      // // Set 'high' res thumbnail
-      // document.getElementById("img").src = data.items[0].snippet.thumbnails.high.url;
-      // Set 'maxres' thumbnail
-      // document.getElementById("img").src = data.items[0].snippet.thumbnails.maxres.url; //using json, causes js errors if it doesn't exist
-      document.getElementById("img").src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg"; //using a generic url string, 404 image if it doesn't exist
+      if (data.items[0].snippet.thumbnails.maxres !== undefined) {
+        // Set 'maxres' thumbnail if avaliable
+        document.getElementById("img").src = data.items[0].snippet.thumbnails.maxres.url;
+      } else if (data.items[0].snippet.thumbnails.high !== undefined) {
+        // Set 'high' res thumbnail if needed and avaliable
+        document.getElementById("img").src = data.items[0].snippet.thumbnails.high.url;
+      } else {
+        // Set medium res thumbnail if needed
+        document.getElementById("img").src = data.items[0].snippet.thumbnails.medium.url;
+      }
       
       // Fade in content (and remove placeholder values)
       document.getElementById("img").style.height = ""; //remove placeholder height

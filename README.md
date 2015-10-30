@@ -7,6 +7,7 @@ Features:
 - Show video description if no CC
 - Show tittle above article and as webpage title
 - Show HQ thumbnail inline, at top of article
+- Fallback to medium or highres thumbnail for videos that don't have a 'maxres' quality thumnail
 - Display channel name as 'author'
 - Compatible with Spritz bookmarklet (Spritzlet)
 - Works well, even with (especialy with) long (~2+ hrs.) videos and documentries.
@@ -15,7 +16,6 @@ Features (upcoming):
 - Display date posted next to author
 - Clicking on author (channel) name opens that channel in a new tab and/or lets you explore it inside YAV
 - Recommended articles at top based on tags (with hover-over thumbnails)
-- Fallback to medium or highres thumbnail for videos that don't have a 'maxres' quality thumnail
 - Allow video playback by clicking on thumbnail
 - Fix missing spaces after punctuation and/or new rendering method
 - Add newlines for, and remove "<<"
