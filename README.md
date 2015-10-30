@@ -4,6 +4,7 @@ This app makes it simple to read the closed captioning of any YouTube video that
 
 Features:
 - View/read 'article' by pasting video Id after "/#" in url and pressing enter
+- Show video description if no CC
 - Show tittle above article and as webpage title
 - Show HQ thumbnail inline, at top of article
 - Display channel name as 'author'
@@ -23,7 +24,6 @@ Features (upcoming):
 - Add 'homepage' with recommended/featured YouTube reading
 - Copy and paste _full_ url
 - Bookmarklet
-- Show video description if no CC or if CC is really short ( < 10 words)
 - Get auto CC (hack?)
 - Android app and/or offline functionalities
 

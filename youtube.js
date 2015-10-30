@@ -23,6 +23,7 @@ function getContent(id) {
       
       // Update the title and give credit to the author
       document.getElementById("title").innerHTML = data.items[0].snippet.title;
+      document.getElementById("description").innerHTML = data.items[0].snippet.description;
       document.title = data.items[0].snippet.title + " (YouTube article view)";
       document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
       
@@ -54,10 +55,17 @@ function getContent(id) {
 
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
-    document.getElementById("content").innerHTML = "No transcript found!"; //in case the next lines cause an error
-    var transcript = xhr.responseXML.documentElement;
-    document.getElementById("content").innerHTML = transcript.textContent;
-    // transcript = xhr.responseXML;
+    var content = document.getElementById("content");
+    if (xhr.responseXML != null) {
+      var transcript = xhr.responseXML.documentElement;
+      content.innerHTML = transcript.textContent;
+      document.getElementById("description").style.display = "none";
+    }
+    else {
+      // Show description and note the lack of a transcript
+      content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found! </em>Description shown instead).";
+      document.getElementById("description").style.display = "block"; //make the description avaliable
+    }
   };
   xhr.onerror = function() {
     document.getElementById("content").innerHTML = "Error getting transcript"; //in case there is an error
