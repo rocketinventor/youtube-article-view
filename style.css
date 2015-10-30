@@ -162,16 +162,6 @@ Single styles
 	transition: opacity ease-out 1.75s;
 }
 
-/**
- *This class makes it possible to crop the letterboxing out of the 'high' res YouTube thumb
- *It only workd with wider (desktop) viewports.
-**/
-.img-crop {
-	object-fit: cover;
-	max-height: 390px;
-	max-width: 704px;
-}
-
 .btn
 {
 	color: #fff !important;

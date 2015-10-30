@@ -31,17 +31,9 @@ function getContent(id) {
       if (data.items[0].snippet.thumbnails.maxres !== undefined) {
         // Set 'maxres' thumbnail if avaliable
         document.getElementById("img").src = data.items[0].snippet.thumbnails.maxres.url;
-        // If using maxres thumb, make sure it is not cropped using the following line
-        document.getElementById("img").classList.remove("img-crop"); //remove crop
-      } else if (data.items[0].snippet.thumbnails.high !== undefined) {
-        // Set 'high' res thumbnail if needed and avaliable
-        document.getElementById("img").src = data.items[0].snippet.thumbnails.high.url;
-        document.getElementById("img").classList.add("img-crop"); //crop off letterboxing
       } else {
         // Set medium res thumbnail if needed
         document.getElementById("img").src = data.items[0].snippet.thumbnails.medium.url;
-        // If using medium thumb, make sure it is not cropped using the following line
-        document.getElementById("img").classList.remove("img-crop"); //remove crop
       }
       
       // Fade in content (and remove placeholder values)
