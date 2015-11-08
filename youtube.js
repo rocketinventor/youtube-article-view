@@ -60,7 +60,9 @@ function getContent(id) {
     var content = document.getElementById("content");
     if (xhr.responseXML != null) {
       var transcript = xhr.responseXML.documentElement;
-      content.innerHTML = transcript.textContent;
+      // content.innerHTML = transcript.textContent;
+      parse(transcript);
+      // console.log(transcript.childNodes);
       document.getElementById("description").style.display = "none";
     }
     else {
@@ -82,6 +84,29 @@ function getContent(id) {
   // document.querySelector("nav").style.display = "block" //make nav visible;
   // document.getElementById("link1").href = "tittle1" //set the title for the first link
   // document.getElementById("link1").text = "/#id1" //set the title for the second link
+}
+
+// New article parser
+function parse(transcript) {
+  document.getElementById("content").innerHTML = "";
+  for (var x = 0; x <= transcript.childElementCount - 1; x++) {
+    document.getElementById("content").appendChild(document.createTextNode(" " + unescapeHtml(transcript.childNodes[x].innerHTML)));
+  }
+  // Give some stats
+  console.log(x + " nodes" + " & " + document.getElementById("content").innerText.length + " chars");
+}
+
+// Unescape html special characters
+function unescapeHtml(unsafe) {
+  return unsafe
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#039;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
+  // If more special character support is needed, the github.com/mathiasbynens/he library could be used
 }
 
 //get video id and update variable

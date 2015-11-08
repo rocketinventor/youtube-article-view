@@ -3,6 +3,7 @@
 This app makes it simple to read the closed captioning of any YouTube video that supports closed captioning and, do so in a nicely formatted article view.
 
 Features:
+- Quick & proper parsing of video transcript with respect for common special characters
 - View/read 'article' by pasting video Id after "/#" in url and pressing enter
 - Or, by clicking the bookmarklet
 - Show video description if no CC
@@ -18,7 +19,6 @@ Features (upcoming):
 - Clicking on author (channel) name opens that channel in a new tab and/or lets you explore it inside YAV
 - Recommended articles at top based on tags (with hover-over thumbnails)
 - Allow video playback by clicking on thumbnail
-- Fix missing spaces after punctuation and/or new rendering method
 - Add newlines for, and remove "<<"
 - Use Spritz API
 - Search feature
