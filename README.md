@@ -16,16 +16,18 @@ Features:
 
 Features (upcoming):
 - Display date posted next to author
-- Clicking on author (channel) name opens that channel in a new tab and/or lets you explore it inside YAV
+- Clicking on  the author name allows you to explore other videos on that channel
 - Recommended articles at top based on tags (with hover-over thumbnails)
 - Allow video playback by clicking on thumbnail
 - Add newlines for, and remove "<<"
 - Use Spritz API
+- Save scroll positions and offer to restore if doesn't match last saved
 - Search feature
 - Add 'homepage' with recommended/featured YouTube reading
 - Copy and paste _full_ url (a button will be in the upper right hand corner)
 - Get auto CC (hack?)
 - Android app and/or offline functionalities
+- Server-side/ hybrid version with 'modern' url scheme (`/id` instead of `/#id`)
 
 Bookmarklet:
 The bookmarklet makes it easy to view the currently open YouTube video in Article View.
