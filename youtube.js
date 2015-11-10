@@ -120,7 +120,7 @@ function newURL() {
   getContent(id);
 }
 
-window.addEventListener("load", newURL); //run sctipt on load
+window.addEventListener("load", newURL); //run script on load
 
 //add listener for change in hash
 window.onhashchange = function () {
