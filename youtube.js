@@ -79,11 +79,73 @@ function getContent(id) {
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
+}
 
-  // Show recommended articles
-  // document.querySelector("nav").style.display = "block" //make nav visible;
-  // document.getElementById("link1").href = "tittle1" //set the title for the first link
-  // document.getElementById("link1").text = "/#id1" //set the title for the second link
+// Update suggested links
+function updateLinks (id, data) {
+  // GET "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key
+  if (typeof data === 'undefined') {
+    data = {
+      "items": [{
+        "id": {
+          "videoId": "H_8y0WLm78U"
+        },
+        "snippet": {
+          "title": "Monica Lewinsky: The price of shame",
+        }
+      }, {
+        "id": {
+          "videoId": "P2AUat93a8Q"
+        },
+        "snippet": {
+          "title": "Why Happy Couples Cheat | Esther Perel | TED Talks",
+        }
+      }, {
+        "id": {
+          "videoId": "Ks-_Mh1QhMc"
+        },
+        "snippet": {
+          "title": "Your Body Language Shapes Who You Are | Amy Cuddy | TED Talks",
+        }
+      }]
+    };
+  }
+  // Fetch related videos
+  if (typeof id !== 'undefined') {
+    var request = new XMLHttpRequest();
+    request.open('GET', "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key, true);
+
+    request.onload = function() {
+    if (this.status >= 200 && this.status < 400) {
+      data = JSON.parse(this.response);
+      var link;
+      for (var x=document.getElementById("nav").querySelectorAll("li").length - 1; x>=0; x--) {
+    // define link
+    link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
+    // set title and url
+    link.href = "#" + data.items[x].id.videoId; //set the title for the first link
+    link.innerHTML = data.items[x].snippet.title; //set the title for the second link
+  }
+    }
+    else {
+      // We reached our target server, but it returned an error
+      console.warn("server responded with a " + this.status + " error");
+    }
+  };
+
+    request.onerror = function() {
+    // There was a connection error of some sort
+    console.warn("The server could not be reached");
+  };
+
+    request.send(); //send request
+
+  // Make sure nav is visible and opaque
+  document.querySelector(".nav-bar").style.display = "block";
+  // document.querySelector(".nav-bar").style.opacity = 1;
+  } else {
+    console.warn("Missing parameter: id; could not fetch related videos!");
+  }
 }
 
 // New article parser
@@ -117,7 +179,10 @@ function newURL() {
   if (location.hash == "") {
     id = fallbackId;
   }
+  // Get content & show recommended articles
   getContent(id);
+  updateLinks(id);
+
 }
 
 window.addEventListener("load", newURL); //run script on load
