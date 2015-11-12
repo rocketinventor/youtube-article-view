@@ -125,7 +125,15 @@ function updateLinks (id, data) {
     // set title and url
     link.href = "#" + data.items[x].id.videoId; //set the title for the first link
     link.innerHTML = data.items[x].snippet.title; //set the title for the second link
+    //Show tooltip with description
+    var description = data.items[x].snippet.description;
+    // Shorten it if it is too long
+    if (description.length > 220) {
+      description = description.substr(0, 190) + "...";
+    }
+    link.parentElement.title = description;//set it
   }
+  
     }
     else {
       // We reached our target server, but it returned an error
