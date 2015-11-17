@@ -158,9 +158,16 @@ function updateLinks (id, data) {
 
 // New article parser
 function parse(transcript) {
-  document.getElementById("content").innerHTML = "";
+  var content = document.getElementById("content");
+  content.innerHTML = "";
   for (var x = 0; x <= transcript.childElementCount - 1; x++) {
-    document.getElementById("content").appendChild(document.createTextNode(" " + unescapeHtml(transcript.childNodes[x].innerHTML)));
+    // content.appendChild(document.createTextNode(" " + unescapeHtml(transcript.childNodes[x].innerHTML)));
+    content.insertAdjacentHTML("beforeEnd", " " + unescapeHtml(transcript.childNodes[x].innerHTML));
+  }
+  // remove line break in beginning
+  if (content.childNodes[1].nodeName == "BR") {
+    content.childNodes[1].style.display = "none";
+    content.childNodes[2].style.display = "none";
   }
   // Give some stats
   console.log(x + " nodes" + " & " + document.getElementById("content").innerText.length + " chars");
@@ -175,7 +182,8 @@ function unescapeHtml(unsafe) {
     .replace(/&quot;/g, "\"")
     .replace(/&#039;/g, "'")
     .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, "&");
+    .replace(/&amp;/g, "&")
+    .replace(/>>/g, "<br>" + "<br>");
   // If more special character support is needed, the github.com/mathiasbynens/he library could be used
 }
 
