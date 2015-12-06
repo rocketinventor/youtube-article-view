@@ -183,6 +183,10 @@ function unescapeHtml(unsafe) {
     .replace(/&#039;/g, "'")
     .replace(/&#39;/g, "'")
     .replace(/&amp;/g, "&")
+    .replace(/]/g, "]" + "<br><br>")
+    .replace(/\[INAUDIBLE]<br><br>/g, "[INAUDIBLE]")
+    // .replace(/--/g, "-")
+    .replace(/--/g, "<br>" + "--")
     .replace(/>>/g, "<br><br>");
   // If more special character support is needed, the github.com/mathiasbynens/he library could be used
 }
