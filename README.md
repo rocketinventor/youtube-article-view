@@ -1,27 +1,29 @@
 # Youtube Article View, _Read_ Your YouTube.
 
-This app makes it simple to read the closed captioning of any YouTube video that supports closed captioning and, do so in a nicely formatted article view.
+This app makes it simple to read the closed captioning of any YouTube video that supports it and do so in an attractive, nicely formatted article view.
 
 Features:
-- Quick & proper parsing of video transcript with respect for common special characters
-- View/read 'article' by pasting video Id after "/#" in url and pressing enter
-- Or, by clicking the bookmarklet
+- Quick & proper parsing of video transcript
+- Respect for common special characters and formatting denotations
+- Intelligent adding of newlines
+- Bookmarklet to view/read 'article' directly from YouTube
+- Manually read a video by pasting it's video Id after "/#" in url and pressing enter
 - Show video description if no CC
 - Show tittle above article and as webpage title
 - Show HQ thumbnail inline, at top of article
 - Fallback to medium or highres thumbnail for videos that don't have a 'maxres' quality thumnail
 - Display channel name as 'author'
+- A short list of related "articles" and their descriptions (in a tooltip) at the top of the page
+- Read recommended articles by clicking on them
 - Compatible with Spritz bookmarklet (Spritzlet)
 - Works well, even with (especialy with) long (~2+ hrs.) videos and documentries.
 
 Features (upcoming):
 - Display date posted next to author
 - Clicking on  the author name allows you to explore other videos on that channel
-- Recommended articles at top based on tags (with hover-over thumbnails)
+- Make it possible to preview related articles and/or thier thumbnails (in a floating card, perhaps)
 - Allow video playback by clicking on thumbnail
-- Add newlines for, and remove "<<"
 - Use Spritz API
-- Save scroll positions and offer to restore if doesn't match last saved
 - Search feature
 - Add 'homepage' with recommended/featured YouTube reading
 - Copy and paste _full_ url (a button will be in the upper right hand corner)
@@ -35,7 +37,7 @@ Steps:
 - Copy the code below
 - Bookmark this page
 - Delete the url and paste the copied code
-- Change the title and give it a title
+- Change the title to "read video in article view" or something of that sort
 
 - On desktop, you can just select the code and drag it to the bookmarks bar
 
