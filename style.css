@@ -9,6 +9,8 @@ body
 	color: #333;
 	background-color: #eee;
 	font: 1em/1.2 "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+	transition: opacity ease-out .75s;
+
 }
 
 h
@@ -79,6 +81,29 @@ Layout styles
 	margin: 0 auto;
 }
 
+.search-panel
+{
+	display:none;
+}
+
+.search-panel img
+{
+	/*width: 100px;*/
+	/*height: 100px;*/
+	margin-right: 10px;
+	max-width: 100%;
+}
+
+.search-panel li
+{
+	background: transparent;
+}
+
+.search-panel a
+{
+	text-decoration:none;
+	color: black;
+}
 .header
 {
 	color: #fff;
@@ -96,7 +121,6 @@ Layout styles
 
 .content {
 	padding: 1em 1.25em;
-	transition: opacity ease-out .75s;
 }
 
 .footer
@@ -156,6 +180,12 @@ Nav
 {
 	color: white;
 	/*background-color: black;*/
+}
+
+/*#nav b*/
+ul b
+{
+	color: black;
 }
 
 /* -----------------------
@@ -237,6 +267,12 @@ Wide styles
 
 @media (min-width: 42em)
 {
+	.search-panel img
+{
+	float: left;
+	height: 9em;
+
+}
 	.header { padding: 1.5em 3em; }
 	.nav-bar { padding: 1em 3em; display:block; }
 	.content { padding: 2em 3em; }
@@ -247,6 +283,11 @@ Wide styles
 		display: inline;
 		margin: 0 1em 0 0;
 		/*padding-right: 10px;*/
+	}
+
+	#nav:first-child > a
+	{
+		margin-right: 1em;
 	}
 
 	::after {

@@ -67,7 +67,7 @@ function getContent(id) {
     }
     else {
       // Show description and note the lack of a transcript
-      content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found! </em>Description shown instead).";
+      content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found in your language! </em>Description shown instead).";
       document.getElementById("description").style.display = "block"; //make the description avaliable
     }
   };
@@ -79,6 +79,73 @@ function getContent(id) {
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
+}
+
+// Hide search results/ home
+function hideResults() {
+  var searchPanel = document.querySelector(".search-panel");
+  searchPanel.style.opacity = "0";
+  searchPanel.style.display = "none";
+  document.querySelector(".content").style.display = "block";
+  // document.querySelector(".content").style.opacity = "1";
+  for (var i=searchPanel.querySelectorAll("li").length - 1; i>=0; i--) {
+      searchPanel.querySelectorAll("li")[i].style.display = "none";
+  }
+  document.querySelector(".nav-bar").style.opacity = "1";
+}
+
+// Show search results/ home
+function showResults(q) {
+  var searchPanel = document.querySelector(".search-panel");
+  searchPanel.style.display = "block";
+  searchPanel.style.opacity = "1";
+  document.querySelector(".content").style.display = "none";
+  document.querySelector(".nav-bar").style.opacity = "0.5";
+  // document.querySelector(".content").style.opacity = "0";
+  var subHeader = searchPanel.querySelector("h2");
+  if (typeof q === 'undefined') {
+    // subHeader.style.display = "block";
+    q = "";
+    // Add suggested tags / interesting topics like "documentary", "Ted talk", etc.
+    // Maybe use/ make an API for this based off of YouTube, Google, or scraping
+    document.title = "YouTube article view";
+    subHeader.innerHTML = "Suggested articles:";
+  } else {
+    // subHeader.style.display = "none";
+    subHeader.innerHTML = "Search results for: " + q;
+    document.title = "Search results for: " + q;
+  }
+  var request = new XMLHttpRequest();
+    request.open('GET', "https://www.googleapis.com/youtube/v3/search?maxResults=10&q=" + q + "&part=snippet&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key, true);
+
+  request.onload = function() {
+  if (this.status >= 200 && this.status < 400) {
+    var data = JSON.parse(this.response);
+    var link;
+    for (var x=data.items.length - 1; x>=0; x--) {
+      // define link
+      link = searchPanel.querySelectorAll("li")[x].querySelector("a");
+      link.parentElement.style.display = "block"; //make visible
+      // Set title, description, and url
+      link.href = "#" + data.items[x].id.videoId; //set the url
+      link.querySelector("h3").innerHTML = data.items[x].snippet.title; //set the title
+      link.querySelector("p").innerHTML = data.items[x].snippet.description;
+      // Set image
+      link.querySelector("img").src = data.items[x].snippet.thumbnails.medium.url;
+    }
+  }
+  else {
+    // We reached our target server, but it returned an error
+    console.warn("server responded with a " + this.status + " error");
+  }
+};
+
+  request.onerror = function() {
+  // There was a connection error of some sort
+  console.warn("The server could not be reached");
+};
+
+  request.send(); //send request
 }
 
 // Update suggested links
@@ -197,10 +264,15 @@ function newURL() {
   var id = window.location.hash.substring(1);
   // if no hash is present, use a fallback video
   if (location.hash == "") {
+    showResults();
     id = fallbackId;
   }
-  // Get content & show recommended articles
-  getContent(id);
+  else {
+    // Get content & show recommended articles
+    hideResults();
+    getContent(id);
+  }
+  // Update links at top of page
   updateLinks(id);
 
 }
