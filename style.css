@@ -274,33 +274,44 @@ Wide styles
 
 }
 	.header { padding: 1.5em 3em; }
-	.nav-bar { padding: 1em 3em; display:block; }
+	.nav-bar {
+		padding: 1em 3em;
+		display: block;
+		max-width: 100%;
+   }
 	.content { padding: 2em 3em; }
 	.footer { padding: 2em 3em; }
 	
-	.nav li
-	{
-		display: inline;
-		margin: 0 1em 0 0;
-		/*padding-right: 10px;*/
+	.nav li {
+	    display: inline;
+	    margin: 0;
+	    padding: 0px; 
+	    width: 33%;
+	    vertical-align: middle;
+	    text-align: center;
+	    display: inline-block;
 	}
 
 	#nav:first-child > a
 	{
 		margin-right: 1em;
+		width: 10%;
+		vertical-align: middle;
+	    display: inline-block;
+
 	}
 
 	::after {
 		color:white;
 	}
 
-	li:after {
-		content: ";";
-	}
+	/*li:after {*/
+	/*	content: ";";*/
+	/*}*/
 	
-	li:last-child:after {
-		content: ";";
-	}
+	/*li:last-child:after {*/
+	/*	content: ";";*/
+	/*}*/
 
 	.nav a
 	{
