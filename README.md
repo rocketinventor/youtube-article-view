@@ -7,26 +7,27 @@ Features:
 - Respect for common special characters and formatting denotations
 - Intelligent adding of newlines
 - Bookmarklet to view/read 'article' directly from YouTube
-- Manually read a video by pasting it's video Id after "/#" in url and pressing enter
+- Manually read a video by pasting it's video id after "/#" in url and pressing enter
+- Find "articles" (videos) and "authors" (channels) by searching for them by title, id, or url
+- A 'homepage' with recommended/featured YouTube reading
 - Show video description if no CC
 - Show tittle above article and as webpage title
 - Show HQ thumbnail inline, at top of article
 - Fallback to medium or highres thumbnail for videos that don't have a 'maxres' quality thumnail
+- Search for and view different channels
 - Display channel name as 'author'
+- Clicking on  the author name allows you to explore other videos on that channel
 - A short list of related "articles" and their descriptions (in a tooltip) at the top of the page
 - Read recommended articles by clicking on them
 - Compatible with Spritz bookmarklet (Spritzlet)
 - Works well, even with (especialy with) long (~2+ hrs.) videos and documentries.
+- Dependency free! (DOES NOT require Jquery, or the proprietary YouTube js framework).
 
 Features (upcoming):
 - Display date posted next to author
-- Clicking on  the author name allows you to explore other videos on that channel
 - Make it possible to preview related articles and/or thier thumbnails (in a floating card, perhaps)
 - Allow video playback by clicking on thumbnail
 - Use Spritz API
-- Search feature
-- Add 'homepage' with recommended/featured YouTube reading
-- Copy and paste _full_ url (a button will be in the upper right hand corner)
 - Get auto CC (hack?)
 - Android app and/or offline functionalities
 - Server-side/ hybrid version with 'modern' url scheme (`/id` instead of `/#id`)

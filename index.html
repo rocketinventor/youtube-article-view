@@ -11,6 +11,8 @@
 <body>
   <div class="nav-bar">
       <ul class="nav" id="nav">
+        <a href="#"><b>Home</b></a>
+        <!--<a href="#/search" onlick="showSearch();"><b>Search</b></a>-->
         <li><a href="#">Loading...</a></li>
         <li><a href="#">Loading...</a></li>
         <li><a href="#">Loading...</a></li>
@@ -20,9 +22,11 @@
     <div class="content" style="opacity:0">
       <h1 id="title" style="align:center"></h1>
       <p>
-        <img id="img" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" class="img-responsive" style="height:396px"></img>
+        <!--<a>-->
+          <img id="img" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" class="img-responsive" style="height:396px"></img>
+        <!--</a>-->
       </p>
-      <h6 style="color:gray">By: <b id="author">undefined</b></h6>
+      <h6 style="color:gray">By: <a><b id="author">undefined</b></a></h6>
       <p id="content">
         Transcription should show here.
       </p>
@@ -128,6 +132,11 @@
       <!--  <a href="#">Previous</a>-->
       <!--  <a href="#">Next</a>-->
       <!--</div>-->
+    </div>
+    <div class="search-box">
+      <h2>Search:</h2>
+      <input type="text" name=""/>
+      <button>Search</button>
     </div>
   </div>
 </body>

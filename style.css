@@ -20,6 +20,15 @@ h
 	line-height: 1.1;
 }
 
+.search-panel > h2 {
+	/*text-align: center;*/
+	margin-left: 1em;
+}
+
+.search-panel > h1 {
+	margin-left: .5em;
+}
+
 h1 { font-size: 2.25em; } /* 36px */
 h2 { font-size: 1.75em; } /* 28px */
 h3 { font-size: 1.375em; } /* 22px */
@@ -81,6 +90,16 @@ Layout styles
 	margin: 0 auto;
 }
 
+.search-box
+{
+	display: none;
+	opacity: 0;
+	position: absolute;
+	z-index: 1;
+	top: 40%;
+	left: 30%;
+}
+
 .search-panel
 {
 	display:none;
@@ -91,7 +110,8 @@ Layout styles
 	/*width: 100px;*/
 	/*height: 100px;*/
 	margin-right: 10px;
-	max-width: 100%;
+	width: 100%;
+	max-width: 30em;
 }
 
 .search-panel li
@@ -270,7 +290,9 @@ Wide styles
 	.search-panel img
 {
 	float: left;
-	height: 9em;
+	/*width: 16em;*/
+	width: auto;
+	height: 8em;
 
 }
 	.header { padding: 1.5em 3em; }
@@ -286,7 +308,7 @@ Wide styles
 	    display: inline;
 	    margin: 0;
 	    padding: 0px; 
-	    width: 33%;
+	    width: 25%;
 	    vertical-align: middle;
 	    text-align: center;
 	    display: inline-block;

@@ -18,26 +18,31 @@ function getContent(id) {
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
       // Create "data" from parsed response
-      var data = JSON.parse(this.response);
-      console.log(data.items[0].snippet);
+      var data = JSON.parse(this.response).items[0].snippet;
+      console.log(data);
       
       // Update the title and give credit to the author
-      document.getElementById("title").innerHTML = data.items[0].snippet.title;
-      document.getElementById("description").innerHTML = data.items[0].snippet.description;
-      document.title = data.items[0].snippet.title + " (YouTube article view)";
-      document.getElementById("author").innerHTML = data.items[0].snippet.channelTitle;
+      document.getElementById("title").innerHTML = data.title;
+      document.getElementById("description").innerHTML = data.description;
+      document.title = data.title + " (YouTube article view)";
+      document.getElementById("author").innerHTML = data.channelTitle;
+      document.getElementById("author").parentNode.href = "#/channel/" + data.channelId;
       
+      var img = document.getElementById("img");
       // This part will add the video thumbnail
-      if (data.items[0].snippet.thumbnails.maxres !== undefined) {
+      if (data.thumbnails.maxres !== undefined) {
         // Set 'maxres' thumbnail if avaliable
-        document.getElementById("img").src = data.items[0].snippet.thumbnails.maxres.url;
+        img.src = data.thumbnails.maxres.url;
       } else {
         // Set medium res thumbnail if needed
-        document.getElementById("img").src = data.items[0].snippet.thumbnails.medium.url;
+        img.src = data.thumbnails.medium.url;
       }
       
+      // // This part will turn the image into a link
+      // img.parentNode.href = "//youtu.be/" + id;
+      
       // Fade in content (and remove placeholder values)
-      document.getElementById("img").style.height = ""; //remove placeholder height
+      img.style.height = ""; //remove placeholder height
       document.querySelector(".content").style.display = "block"; //unhide content
       document.querySelector(".content").style.opacity = "1"; //fade it in
     }
@@ -94,8 +99,8 @@ function hideResults() {
   document.querySelector(".nav-bar").style.opacity = "1";
 }
 
-// Show search results/ home
-function showResults(q) {
+// Show search results/ home / channel
+function showResults(q, type) {
   var searchPanel = document.querySelector(".search-panel");
   searchPanel.style.display = "block";
   searchPanel.style.opacity = "1";
@@ -103,6 +108,9 @@ function showResults(q) {
   document.querySelector(".nav-bar").style.opacity = "0.5";
   // document.querySelector(".content").style.opacity = "0";
   var subHeader = searchPanel.querySelector("h2");
+  if (typeof type === 'undefined') {
+    type = "video";
+  }
   if (typeof q === 'undefined') {
     // subHeader.style.display = "block";
     q = "";
@@ -112,22 +120,35 @@ function showResults(q) {
     subHeader.innerHTML = "Suggested articles:";
   } else {
     // subHeader.style.display = "none";
-    subHeader.innerHTML = "Search results for: " + q;
-    document.title = "Search results for: " + q;
+    var title;
+    if (type == "channelId") {
+      title = "Channel ID: " + q;
+    } else {
+      title = "Search results for: " + q;
+    }
+    subHeader.innerHTML = title;
+    document.title = title;
   }
   var request = new XMLHttpRequest();
-    request.open('GET', "https://www.googleapis.com/youtube/v3/search?maxResults=10&q=" + q + "&part=snippet&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key, true);
+  var url = "https://www.googleapis.com/youtube/v3/search?maxResults=10&type=" + (type != "channelId" ? type + "&q" : "video&channelId") + "=" + q + (type == "video" ? "&videoCaption=closedCaption&videoDuration=long" : "") + "&part=snippet" + "&fields=items(id%2Csnippet)&key=" + key;
+    request.open('GET', url, true);
 
   request.onload = function() {
   if (this.status >= 200 && this.status < 400) {
     var data = JSON.parse(this.response);
     var link;
+    var kind;
     for (var x=data.items.length - 1; x>=0; x--) {
       // define link
       link = searchPanel.querySelectorAll("li")[x].querySelector("a");
       link.parentElement.style.display = "block"; //make visible
       // Set title, description, and url
-      link.href = "#" + data.items[x].id.videoId; //set the url
+      kind = data.items[x].id.kind.split("#").pop();
+      if (kind == "channel") {
+        link.href = "#/channel/" + data.items[x].id.channelId; //set the url
+      } else {
+        link.href = "#/video/" + data.items[x].id.videoId; //set the url
+      }
       link.querySelector("h3").innerHTML = data.items[x].snippet.title; //set the title
       link.querySelector("p").innerHTML = data.items[x].snippet.description;
       // Set image
@@ -146,6 +167,20 @@ function showResults(q) {
 };
 
   request.send(); //send request
+}
+
+// Show and hide searchbox
+function showSearch() {
+  var searchBox = document.querySelector(".search-box");
+  searchBox.style.display = "block";
+  searchBox.style.opacity = "0";
+  searchBox.style.opacity = "1";
+}
+
+function hideSearch() {
+  var searchBox = document.querySelector(".search-box");
+  searchBox.style.display = "none";
+  searchBox.style.opacity = "0";
 }
 
 // Update suggested links
@@ -180,7 +215,8 @@ function updateLinks (id, data) {
   // Fetch related videos
   if (typeof id !== 'undefined') {
     var request = new XMLHttpRequest();
-    request.open('GET', "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key, true);
+    var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key;
+    request.open('GET', url, true);
 
     request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
@@ -190,8 +226,9 @@ function updateLinks (id, data) {
     // define link
     link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
     // set title and url
-    link.href = "#" + data.items[x].id.videoId; //set the title for the first link
-    link.innerHTML = data.items[x].snippet.title; //set the title for the second link
+    link.href = "#/video/" + data.items[x].id.videoId; //set the title for the first link
+    var title = data.items[x].snippet.title;
+    link.innerHTML = (title.length > 55 ? title.substr(0,50) + "..." : title); //set the title for the second link
     //Show tooltip with description
     var description = data.items[x].snippet.description;
     // Shorten it if it is too long
@@ -260,18 +297,34 @@ function unescapeHtml(unsafe) {
 
 //get video id and update variable
 function newURL() {
+  // First hide the searchbox just in case
+  hideSearch();
   // get video id from hash
-  var id = window.location.hash.substring(1);
+  var hash = location.hash.substring(1);
+  var split = hash.split("/");
+  var id = split.pop();
   // if no hash is present, use a fallback video
   if (location.hash == "") {
     showResults();
     id = fallbackId;
   }
   else {
-    // Get content & show recommended articles
-    hideResults();
-    getContent(id);
+    if (split[1] == "search") {
+      // if no Id...
+      showSearch();
+      hideResults();
+      // If there is an id
+      // showResults(id); // make sure to decode uri, first
+    } else if (split[1] == "channel") {
+      showResults(id, "channelId");
+    } else {
+      // Get content & show recommended articles
+      hideResults();
+      hideSearch();
+      getContent(id);
+    }
   }
+
   // Update links at top of page
   updateLinks(id);
 
