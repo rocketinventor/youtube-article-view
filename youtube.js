@@ -219,21 +219,20 @@ function updateLinks (id, data) {
       data = JSON.parse(this.response);
       var link;
       for (var x=document.getElementById("nav").querySelectorAll("li").length - 1; x>=0; x--) {
-    // define link
-    link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
-    // set title and url
-    link.href = "#/video/" + data.items[x].id.videoId; //set the title for the first link
-    var title = data.items[x].snippet.title;
-    link.innerHTML = (title.length > 55 ? title.substr(0,50) + "..." : title); //set the title for the second link
-    //Show tooltip with description
-    var description = data.items[x].snippet.description;
-    // Shorten it if it is too long
-    if (description.length > 220) {
-      description = description.substr(0, 190) + "...";
-    }
-    link.parentElement.title = description;//set it
-  }
-  
+        // define link
+        link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
+    
+        // Set title and url
+        link.href = "#/video/" + data.items[x].id.videoId; // set the url for the links
+        var title = data.items[x].snippet.title; // define title
+        title = (title.length > 55 ? title.split("|")[0].split(":")[0] : title); // split the title intelligently if it is too long
+        title = (title.length > 55 ? title.substr(0,50) + "..." : title); // make the title even shorter if it's still too long
+        link.innerHTML = title; //set the title
+        //Show tooltip with description
+        var description = data.items[x].snippet.description; // define description
+        description = (description.length > 220 ? description.substr(0, 190) + "..." : description); // shorten lengthy descriptions
+        link.parentElement.title = description; // set it
+      }
     }
     else {
       // We reached our target server, but it returned an error
