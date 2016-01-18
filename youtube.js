@@ -108,12 +108,10 @@ function showResults(q, type) {
   document.querySelector(".nav-bar").style.opacity = "0.5";
   // document.querySelector(".content").style.opacity = "0";
   var subHeader = searchPanel.querySelector("h2");
-  if (typeof type === 'undefined') {
-    type = "video";
-  }
-  if (typeof q === 'undefined') {
+  type = type || "video";
+  if (!q) {
     // subHeader.style.display = "block";
-    q = "";
+    q = ""; // just in case
     // Add suggested tags / interesting topics like "documentary", "Ted talk", etc.
     // Maybe use/ make an API for this based off of YouTube, Google, or scraping
     document.title = "YouTube article view";
@@ -186,8 +184,7 @@ function hideSearch() {
 // Update suggested links
 function updateLinks (id, data) {
   // GET "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key
-  if (typeof data === 'undefined') {
-    data = {
+  data = data || {
       "items": [{
         "id": {
           "videoId": "H_8y0WLm78U"
@@ -211,9 +208,8 @@ function updateLinks (id, data) {
         }
       }]
     };
-  }
   // Fetch related videos
-  if (typeof id !== 'undefined') {
+  if (id) {
     var request = new XMLHttpRequest();
     var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key;
     request.open('GET', url, true);
