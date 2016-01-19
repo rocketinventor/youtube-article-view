@@ -20,27 +20,28 @@ function getContent(id) {
       // Create "data" from parsed response
       var data = JSON.parse(this.response).items[0].snippet;
       console.log(data);
-      
+
       // Update the title and give credit to the author
       document.getElementById("title").innerHTML = data.title;
       document.getElementById("description").innerHTML = data.description;
       document.title = data.title + " (YouTube article view)";
       document.getElementById("author").innerHTML = data.channelTitle;
       document.getElementById("author").parentNode.href = "#/channel/" + data.channelId;
-      
+
       var img = document.getElementById("img");
       // This part will add the video thumbnail
       if (data.thumbnails.maxres !== undefined) {
         // Set 'maxres' thumbnail if avaliable
         img.src = data.thumbnails.maxres.url;
-      } else {
+      }
+      else {
         // Set medium res thumbnail if needed
         img.src = data.thumbnails.medium.url;
       }
-      
+
       // // This part will turn the image into a link
       // img.parentNode.href = "//youtu.be/" + id;
-      
+
       // Fade in content (and remove placeholder values)
       img.style.height = ""; //remove placeholder height
       document.querySelector(".content").style.display = "block"; //unhide content
@@ -93,8 +94,8 @@ function hideResults() {
   searchPanel.style.display = "none";
   document.querySelector(".content").style.display = "block";
   // document.querySelector(".content").style.opacity = "1";
-  for (var i=searchPanel.querySelectorAll("li").length - 1; i>=0; i--) {
-      searchPanel.querySelectorAll("li")[i].style.display = "none";
+  for (var i = searchPanel.querySelectorAll("li").length - 1; i >= 0; i--) {
+    searchPanel.querySelectorAll("li")[i].style.display = "none";
   }
   document.querySelector(".nav-bar").style.opacity = "1";
 }
@@ -116,12 +117,14 @@ function showResults(q, type) {
     // Maybe use/ make an API for this based off of YouTube, Google, or scraping
     document.title = "YouTube article view";
     subHeader.innerHTML = "Suggested articles:";
-  } else {
+  }
+  else {
     // subHeader.style.display = "none";
     var title;
     if (type == "channelId") {
       title = "Channel ID: " + q;
-    } else {
+    }
+    else {
       title = "Search results for: " + q;
     }
     subHeader.innerHTML = title;
@@ -129,40 +132,41 @@ function showResults(q, type) {
   }
   var request = new XMLHttpRequest();
   var url = "https://www.googleapis.com/youtube/v3/search?maxResults=10&type=" + (type != "channelId" ? type + "&q" : "video&channelId") + "=" + q + (type == "video" ? "&videoCaption=closedCaption&videoDuration=long" : "") + "&part=snippet" + "&fields=items(id%2Csnippet)&key=" + key;
-    request.open('GET', url, true);
+  request.open('GET', url, true);
 
   request.onload = function() {
-  if (this.status >= 200 && this.status < 400) {
-    var data = JSON.parse(this.response);
-    var link;
-    var kind;
-    for (var x=data.items.length - 1; x>=0; x--) {
-      // define link
-      link = searchPanel.querySelectorAll("li")[x].querySelector("a");
-      link.parentElement.style.display = "block"; //make visible
-      // Set title, description, and url
-      kind = data.items[x].id.kind.split("#").pop();
-      if (kind == "channel") {
-        link.href = "#/channel/" + data.items[x].id.channelId; //set the url
-      } else {
-        link.href = "#/video/" + data.items[x].id.videoId; //set the url
+    if (this.status >= 200 && this.status < 400) {
+      var data = JSON.parse(this.response);
+      var link;
+      var kind;
+      for (var x = data.items.length - 1; x >= 0; x--) {
+        // define link
+        link = searchPanel.querySelectorAll("li")[x].querySelector("a");
+        link.parentElement.style.display = "block"; //make visible
+        // Set title, description, and url
+        kind = data.items[x].id.kind.split("#").pop();
+        if (kind == "channel") {
+          link.href = "#/channel/" + data.items[x].id.channelId; //set the url
+        }
+        else {
+          link.href = "#/video/" + data.items[x].id.videoId; //set the url
+        }
+        link.querySelector("h3").innerHTML = data.items[x].snippet.title; //set the title
+        link.querySelector("p").innerHTML = data.items[x].snippet.description;
+        // Set image
+        link.querySelector("img").src = data.items[x].snippet.thumbnails.medium.url;
       }
-      link.querySelector("h3").innerHTML = data.items[x].snippet.title; //set the title
-      link.querySelector("p").innerHTML = data.items[x].snippet.description;
-      // Set image
-      link.querySelector("img").src = data.items[x].snippet.thumbnails.medium.url;
     }
-  }
-  else {
-    // We reached our target server, but it returned an error
-    console.warn("server responded with a " + this.status + " error");
-  }
-};
+    else {
+      // We reached our target server, but it returned an error
+      console.warn("server responded with a " + this.status + " error");
+    }
+  };
 
   request.onerror = function() {
-  // There was a connection error of some sort
-  console.warn("The server could not be reached");
-};
+    // There was a connection error of some sort
+    console.warn("The server could not be reached");
+  };
 
   request.send(); //send request
 }
@@ -182,32 +186,32 @@ function hideSearch() {
 }
 
 // Update suggested links
-function updateLinks (id, data) {
+function updateLinks(id, data) {
   // GET "https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=" + id + "&type=video&videoCaption=closedCaption&videoDuration=long&fields=items(id%2Csnippet)&key=" + key
   data = data || {
-      "items": [{
-        "id": {
-          "videoId": "H_8y0WLm78U"
-        },
-        "snippet": {
-          "title": "Monica Lewinsky: The price of shame",
-        }
+    "items": [{
+      "id": {
+        "videoId": "H_8y0WLm78U"
+      },
+      "snippet": {
+        "title": "Monica Lewinsky: The price of shame",
+      }
       }, {
-        "id": {
-          "videoId": "P2AUat93a8Q"
-        },
-        "snippet": {
-          "title": "Why Happy Couples Cheat | Esther Perel | TED Talks",
-        }
+      "id": {
+        "videoId": "P2AUat93a8Q"
+      },
+      "snippet": {
+        "title": "Why Happy Couples Cheat | Esther Perel | TED Talks",
+      }
       }, {
-        "id": {
-          "videoId": "Ks-_Mh1QhMc"
-        },
-        "snippet": {
-          "title": "Your Body Language Shapes Who You Are | Amy Cuddy | TED Talks",
-        }
+      "id": {
+        "videoId": "Ks-_Mh1QhMc"
+      },
+      "snippet": {
+        "title": "Your Body Language Shapes Who You Are | Amy Cuddy | TED Talks",
+      }
       }]
-    };
+  };
   // Fetch related videos
   if (id) {
     var request = new XMLHttpRequest();
@@ -215,42 +219,43 @@ function updateLinks (id, data) {
     request.open('GET', url, true);
 
     request.onload = function() {
-    if (this.status >= 200 && this.status < 400) {
-      data = JSON.parse(this.response);
-      var link;
-      for (var x=document.getElementById("nav").querySelectorAll("li").length - 1; x>=0; x--) {
-        // define link
-        link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
-    
-        // Set title and url
-        link.href = "#/video/" + data.items[x].id.videoId; // set the url for the links
-        var title = data.items[x].snippet.title; // define title
-        title = (title.length > 55 ? title.split("|")[0].split(":")[0] : title); // split the title intelligently if it is too long
-        title = (title.length > 55 ? title.substr(0,50) + "..." : title); // make the title even shorter if it's still too long
-        link.innerHTML = title; //set the title
-        //Show tooltip with description
-        var description = data.items[x].snippet.description; // define description
-        description = (description.length > 220 ? description.substr(0, 190) + "..." : description); // shorten lengthy descriptions
-        link.parentElement.title = description; // set it
+      if (this.status >= 200 && this.status < 400) {
+        data = JSON.parse(this.response);
+        var link;
+        for (var x = document.getElementById("nav").querySelectorAll("li").length - 1; x >= 0; x--) {
+          // define link
+          link = document.getElementById("nav").querySelectorAll("li")[x].querySelector("a");
+
+          // Set title and url
+          link.href = "#/video/" + data.items[x].id.videoId; // set the url for the links
+          var title = data.items[x].snippet.title; // define title
+          title = (title.length > 55 ? title.split("|")[0].split(":")[0] : title); // split the title intelligently if it is too long
+          title = (title.length > 55 ? title.substr(0, 50) + "..." : title); // make the title even shorter if it's still too long
+          link.innerHTML = title; //set the title
+          //Show tooltip with description
+          var description = data.items[x].snippet.description; // define description
+          description = (description.length > 220 ? description.substr(0, 190) + "..." : description); // shorten lengthy descriptions
+          link.parentElement.title = description; // set it
+        }
       }
-    }
-    else {
-      // We reached our target server, but it returned an error
-      console.warn("server responded with a " + this.status + " error");
-    }
-  };
+      else {
+        // We reached our target server, but it returned an error
+        console.warn("server responded with a " + this.status + " error");
+      }
+    };
 
     request.onerror = function() {
-    // There was a connection error of some sort
-    console.warn("The server could not be reached");
-  };
+      // There was a connection error of some sort
+      console.warn("The server could not be reached");
+    };
 
     request.send(); //send request
 
-  // Make sure nav is visible and opaque
-  document.querySelector(".nav-bar").style.display = "block";
-  // document.querySelector(".nav-bar").style.opacity = 1;
-  } else {
+    // Make sure nav is visible and opaque
+    document.querySelector(".nav-bar").style.display = "block";
+    // document.querySelector(".nav-bar").style.opacity = 1;
+  }
+  else {
     console.warn("Missing parameter: id; could not fetch related videos!");
   }
 }
@@ -310,9 +315,11 @@ function newURL() {
       hideResults();
       // If there is an id
       // showResults(id); // make sure to decode uri, first
-    } else if (split[1] == "channel") {
+    }
+    else if (split[1] == "channel") {
       showResults(id, "channelId");
-    } else {
+    }
+    else {
       // Get content & show recommended articles
       hideResults();
       hideSearch();
@@ -328,7 +335,7 @@ function newURL() {
 window.addEventListener("load", newURL); //run script on load
 
 //add listener for change in hash
-window.onhashchange = function () {
+window.onhashchange = function() {
   newURL();
   document.querySelector(".content").style.opacity = "0.1"; //fade out old content
 };
