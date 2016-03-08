@@ -139,6 +139,12 @@ function showResults(q, type) {
       var data = JSON.parse(this.response);
       var link;
       var kind;
+      if (document.location.hash.split("/")[1] == "channel") {
+        var searchPanel = document.querySelector(".search-panel");
+        var title = data.items[0].snippet.channelTitle;
+        document.title = title  + " (YouTube article view)";
+        searchPanel.querySelector("h2").innerHTML = "Channel: " + title;
+      }
       for (var x = data.items.length - 1; x >= 0; x--) {
         // define link
         link = searchPanel.querySelectorAll("li")[x].querySelector("a");
