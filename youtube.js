@@ -139,6 +139,7 @@ function showResults(q, type) {
       var data = JSON.parse(this.response);
       var link;
       var kind;
+      var searchPanel = document.querySelector(".search-panel");
       if (document.location.hash.split("/")[1] == "channel") {
         var searchPanel = document.querySelector(".search-panel");
         var title = data.items[0].snippet.channelTitle;
