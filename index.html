@@ -12,7 +12,6 @@
   <div class="nav-bar">
       <ul class="nav" id="nav">
         <a href="#"><b>Home</b></a>
-        <!--<a href="#/search" onlick="showSearch();"><b>Search</b></a>-->
         <li><a href="#">Loading...</a></li>
         <li><a href="#">Loading...</a></li>
         <li><a href="#">Loading...</a></li>
@@ -135,10 +134,19 @@
     </div>
     <div class="search-box">
       <h2>Search:</h2>
-      <input type="text" name=""/>
-      <button>Search</button>
+      <input type="text" name="" id="query"/><br>
+      <br><input type="radio" name="searchMethod" value="all"> Everything
+      <br><input type="radio" name="searchMethod" value="channel"> By channel
+      <br><input type="radio" name="searchMethod" value="video"> By video
+      <br><input type="radio" name="searchMethod" value="url"> By video url
+      <br><br>
+      <button onclick="search()">Search</button>
     </div>
   </div>
+  <span class="overlay" onclick="hideSearch()"></span>
+  <footer onclick="showSearch()">
+    Bored? <b>Click here</b> to <b>Search</b> for more!
+  </footer>
 </body>
 
 </html>

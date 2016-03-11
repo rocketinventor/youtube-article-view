@@ -12,7 +12,6 @@ body
 	transition: opacity ease-out .75s;
 	width: 100%;
 	overflow-x: hidden;
-
 }
 
 h
@@ -92,14 +91,29 @@ Layout styles
 	margin: 0 auto;
 }
 
-.search-box
-{
+.search-box {
+    display: none;
+    opacity: 0;
+    position: fixed;
+    z-index: 10;
+    top: 40%;
+    left: 12%;
+    padding: 3em;
+    padding-top: 0;
+    background-color: slategray;
+    width: 12em;
+}
+
+.overlay {
+	opacity: .8;
+	position: fixed;
+	z-index: 5;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
 	display: none;
-	opacity: 0;
-	position: absolute;
-	z-index: 1;
-	top: 40%;
-	left: 30%;
 }
 
 .search-panel
@@ -112,7 +126,7 @@ Layout styles
 	/*width: 100px;*/
 	/*height: 100px;*/
 	margin-right: 10px;
-	width: 100%;
+	width: 94%;
 	max-width: 30em;
 }
 
@@ -135,10 +149,15 @@ Layout styles
 
 .header-heading { margin: 0; }
 
-.nav-bar
+.nav-bar, footer
 {
 	background: slategray;
 	padding: 0;
+}
+
+footer {
+	padding: 1em;
+	cursor: pointer;
 }
 
 .content {
@@ -305,7 +324,7 @@ Wide styles
    }
 	.content { padding: 2em 3em; }
 	.footer { padding: 2em 3em; }
-	
+	footer { padding-left: 2em; }
 	.nav li {
 	    display: inline;
 	    margin: 0;

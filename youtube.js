@@ -180,16 +180,48 @@ function showResults(q, type) {
 
 // Show and hide searchbox
 function showSearch() {
+  document.getElementsByName("searchMethod")[0].checked = true;
   var searchBox = document.querySelector(".search-box");
   searchBox.style.display = "block";
   searchBox.style.opacity = "0";
   searchBox.style.opacity = "1";
+  document.querySelector(".overlay").style.display = "block";
 }
 
 function hideSearch() {
   var searchBox = document.querySelector(".search-box");
   searchBox.style.display = "none";
   searchBox.style.opacity = "0";
+  document.querySelector(".overlay").style.display = "";
+  document.getElementById("query").value;
+}
+
+function search() {
+  var type;
+  var q = document.getElementById("query").value;
+  var options = document.getElementsByName("searchMethod"); 
+  type = "all";
+  if (options[1].checked == true) {
+   type = "channel";
+  }
+  if (options[2].checked == true) {
+   type = "video";
+  }
+  if (options[3].checked == true) {
+   type = "videoUrl";
+  }
+  if (type != "videoUrl") {
+    hideSearch();
+    // showResults(q, type); // Search for it
+    if (q) {
+      location.hash = "#/search/" + type + "/" + q; // Go to the search URL
+    }
+  }
+  else {
+    hideSearch();
+    location.hash = "#"+q.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)[2];
+  }
+  options[0].checked = true;
 }
 
 // Update suggested links
@@ -315,13 +347,17 @@ function newURL() {
     showResults();
     id = fallbackId;
   }
-  else {
+  if (split.length > 1) {
     if (split[1] == "search") {
-      // if no Id...
-      showSearch();
-      hideResults();
       // If there is an id
-      // showResults(id); // make sure to decode uri, first
+      if (split.length == 3) {
+        showResults(decodeURIComponent(id), split[2]);
+      }
+      // if no Id...
+      else {
+        showSearch();
+        hideResults();
+      }
     }
     else if (split[1] == "channel") {
       showResults(id, "channelId");
