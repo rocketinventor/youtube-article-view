@@ -316,6 +316,7 @@ Wide styles
 	height: 8em;
 
 }
+	a p { min-height: 2em; }
 	.header { padding: 1.5em 3em; }
 	.nav-bar {
 		padding: 1em 3em;
