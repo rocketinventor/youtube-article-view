@@ -3,11 +3,12 @@
 This app makes it simple to read the closed captioning of any YouTube video that supports it and do so in an attractive, nicely formatted article view.
 
 Features:
+- Read Youtube videos in your own, or any avaliable language for that video ("#/video/lang=[lang]/[video id]")
 - Quick & proper parsing of video transcript
 - Respect for common special characters and formatting denotations
 - Intelligent adding of newlines
 - Bookmarklet to view/read 'article' directly from YouTube
-- Manually read a video by pasting it's video id after "/#" in url and pressing enter
+- Manually read a video by pasting it's video id after "#/video/" in url and pressing enter
 - Find "articles" (videos) and "authors" (channels) by searching for them by title, id, or url
 - A 'homepage' with recommended/featured YouTube reading
 - Show video description if no CC
@@ -24,13 +25,12 @@ Features:
 - Dependency free! (DOES NOT require Jquery, or the proprietary YouTube js framework).
 
 Features (upcoming):
-- Display date posted next to author
-- Make it possible to preview related articles and/or thier thumbnails (in a floating card, perhaps)
-- Allow video playback by clicking on thumbnail
-- Use Spritz API
 - Get auto CC (hack?)
 - Android app and/or offline functionalities
 - Server-side/ hybrid version with 'modern' url scheme (`/id` instead of `/#id`)
+- Suggest alternate languages to read article in when not avaliable in current language
+- Automatically set language based off of browser preferences
+- Improve suggestions (they don't work for all pages)
 
 Bookmarklet:
 The bookmarklet makes it easy to view the currently open YouTube video in Article View.
