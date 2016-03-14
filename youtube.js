@@ -367,7 +367,13 @@ function newURL() {
       // Get content & show recommended articles
       hideResults();
       hideSearch();
-      getContent(id);
+      if (split.length >= 3) {
+        var langs = split[2].split("=");
+        if (langs[0] == "&lang") {
+          var lang = langs[1];
+        }
+      }
+      getContent(id, lang);
     }
   }
 
