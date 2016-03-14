@@ -74,7 +74,7 @@ function getContent(id, lang) {
     }
     else {
       // Show description and note the lack of a transcript
-      content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found in your language! </em>Description shown instead).";
+      content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found in your language: " + (lName(lang) || lang) + ". </em>Description shown instead).";
       document.getElementById("description").style.display = "block"; //make the description avaliable
     }
   };
