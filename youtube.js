@@ -11,7 +11,8 @@ var key = "AIzaSyC6Ymc1aoVbR3zMgsZqFCef9SOoHQV5X0Y"; //api key goes here
 var fallbackId = "QGwKge-ivkU";
 
 // update reading view
-function getContent(id) {
+function getContent(id, lang) {
+  lang = lang || "en"; 
   var request = new XMLHttpRequest();
   request.open('GET', "https://www.googleapis.com/youtube/v3/videos?id=" + id + "&key=" + key + "&fields=items(snippet)&part=snippet", true);
 
@@ -81,7 +82,7 @@ function getContent(id) {
     document.getElementById("content").innerHTML = "Error getting transcript"; //in case there is an error
     console.log("Error while getting XML.");
   };
-  var url = "https://www.youtube.com/api/timedtext?v=" + id + "&lang=en";
+  var url = "https://www.youtube.com/api/timedtext?v=" + id + "&lang=" + lang;
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
