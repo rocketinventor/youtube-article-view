@@ -43,7 +43,7 @@ Steps:
 - On desktop, you can just select the code and drag it to the bookmarks bar
 
 Code to copy:
-`javascript:(function(){document.location="https://rawgit.com/rocketinventor/youtube-article-view/master/index.html#"+location.href.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)[2];})();`
+`javascript:(function(){document.location="https://rawgit.com/rocketinventor/youtube-article-view/master/index.html#/video/"+location.href.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)[2];})();`
 
 Disclaimer: The API (V2) currently being used to get CC data has been officially depreciated and could be discontinued at any time. V3 of the YouTube CC API doesn't seem to support the functionlity needed (although json responses would be nice). The functionality will likely have to be rewritten in the future and will probably have to be implemented using a hack of some sort.
 
