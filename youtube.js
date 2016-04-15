@@ -94,38 +94,41 @@ function getLangs(id) {
   // GET "https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=apbSsILLh28&fields=items%2Fsnippet%2Flanguage&key=" + {YOUR_API_KEY}
 
   id = id || "apbSsILLh28";
-  var request = new XMLHttpRequest();
-  request.open('GET', "https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=" + id + "&fields=items%2Fsnippet%2Flanguage&key=" + key, true);
+  return new Promise(function(resolve, reject) {
+    var request = new XMLHttpRequest();
+    request.open('GET', "https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=" + id + "&fields=items%2Fsnippet%2Flanguage&key=" + key, true);
 
-  request.onload = function() {
-    if (this.status >= 200 && this.status < 400) {
-      var data = JSON.parse(this.response).items;
-      // console.log(data);
-      var results = [];
-      for (var i = 0; i < data.length; i++) {
-        var lCode = data[i].snippet.language;
-        var response = {
-          name: lName(lCode),
-          code: lCode,
-          hash: "#/video/&lang=" + lCode + "/" + id,
-        };
-        results.push(response);
+    request.onload = function() {
+      if (this.status >= 200 && this.status < 400) {
+        var data = JSON.parse(this.response).items;
+        // console.log(data);
+        var results = [];
+        for (var i = 0; i < data.length; i++) {
+          var lCode = data[i].snippet.language;
+          var response = {
+            name: lName(lCode),
+            code: lCode,
+            hash: "#/video/&lang=" + lCode + "/" + id,
+          };
+          results.push(response);
+        }
+        resolve(results);
       }
-      return results;
-    }
-    else {
-      // We reached our target server, but it returned an error
-      console.warn("server responded with a " + this.status + " error");
-    }
-  };
+      else {
+        // We reached our target server, but it returned an error
+        console.warn("server responded with a " + this.status + " error");
+        reject(Error(this.statusText));
+      }
+    };
 
-  request.onerror = function() {
-    // There was a connection error of some sort
-    console.warn("The server could not be reached");
-  };
+    request.onerror = function() {
+      // There was a connection error of some sort
+      console.warn("The server could not be reached");
+    };
 
-  request.send(); //send request
-  // Loading...
+    request.send(); //send request
+    // Loading...
+  });
 }
 
 // Hide search results/ home
