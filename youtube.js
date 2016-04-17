@@ -75,7 +75,19 @@ function getContent(id, lang) {
     else {
       // Show description and note the lack of a transcript
       content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found in your language: " + (lName(lang) || lang) + ". </em>Description shown instead).";
-      document.getElementById("description").style.display = "block"; //make the description avaliable
+      getLangs(id).then(function(value) {
+        console.log(value); // Success!
+        value.forEach(function(row, i) {
+          var list = " <a href=\"" + row.hash + "\">" + row.name + "</a>";
+          if (i > 0) {
+            list = "," + list; 
+          }
+          content.innerHTML += list;
+        }, function(reason) {
+          console.log(reason); // Error!
+        });
+        document.getElementById("description").style.display = "block"; //make the description avaliable
+      });
     }
   };
   xhr.onerror = function() {
@@ -86,7 +98,7 @@ function getContent(id, lang) {
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.send();
-}
+  }
 
 // Get a list of subtitled languages
 function getLangs(id) {
