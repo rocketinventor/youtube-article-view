@@ -11,6 +11,7 @@ Features:
 - Manually read a video by pasting it's video id after "#/video/" in url and pressing enter
 - Find "articles" (videos) and "authors" (channels) by searching for them by title, id, or url
 - A 'homepage' with recommended/featured YouTube reading
+- Suggests alternate languages to read article in when not avaliable in current language
 - Show video description if no CC
 - Show tittle above article and as webpage title
 - Show HQ thumbnail inline, at top of article
@@ -28,7 +29,6 @@ Features (upcoming):
 - Get auto CC (hack?)
 - Android app and/or offline functionalities
 - Server-side/ hybrid version with 'modern' url scheme (`/id` instead of `/#id`)
-- Suggest alternate languages to read article in when not avaliable in current language
 - Automatically set language based off of browser preferences
 - Improve suggestions (they don't work for all pages)
 
