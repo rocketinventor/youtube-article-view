@@ -81,25 +81,25 @@ function getContent(id, lang) {
         value.forEach(function(row, i) {
           var list = " <a href=\"" + row.hash + "\">" + row.name + "</a>";
           if (i > 0) {
-            list = "," + list; 
+            list = "," + list;
           }
           content.innerHTML += list;
-        }, function(reason) {
-          console.log(reason); // Error!
-        });
-        document.getElementById("description").style.display = "block"; //make the description avaliable
+        })
+      }, function(reason) {
+        console.log(reason); // Error!
       });
-    }
-  };
-  xhr.onerror = function() {
-    document.getElementById("content").innerHTML = "Error getting transcript"; //in case there is an error
-    console.log("Error while getting XML.");
-  };
-  var url = "https://www.youtube.com/api/timedtext?v=" + id + "&lang=" + lang;
-  xhr.open("GET", url);
-  xhr.responseType = "document";
-  xhr.send();
-  }
+      document.getElementById("description").style.display = "block"; //make the description avaliable
+      }
+    };
+    xhr.onerror = function() {
+      document.getElementById("content").innerHTML = "Error getting transcript"; //in case there is an error
+      console.log("Error while getting XML.");
+    };
+    var url = "https://www.youtube.com/api/timedtext?v=" + id + "&lang=" + lang;
+    xhr.open("GET", url);
+    xhr.responseType = "document";
+    xhr.send();
+}
 
 // Get a list of subtitled languages
 function getLangs(id) {
