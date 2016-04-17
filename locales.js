@@ -283,6 +283,10 @@ var isoLangs = {
         "name":"Inuktitut",
         "nativeName":"ᐃᓄᒃᑎᑐᑦ"
     },
+    "iw":{
+        "name":"Hebrew",
+        "nativeName":"עברית"
+    },
     "ja":{
         "name":"Japanese",
         "nativeName":"日本語 (にほんご／にっぽんご)"
@@ -730,10 +734,16 @@ var isoLangs = {
 }
 
 function lName (lang) {
-    if (isoLangs.hasOwnProperty(lang)) {
-        return isoLangs[lang].name.split(",")[0];
+    var result;
+    var split = lang.split("-");
+    if (isoLangs.hasOwnProperty(split[0])) {
+        result = isoLangs[split[0]].name.split(",")[0];
     }
     else {
-        return lang + " (unknown lang code)";
+        result = lang + " (unknown lang code)";
     }
+    if (split.length ==2) {
+        result += " (" + split[1] + ")";
+    }
+    return result;
 }
