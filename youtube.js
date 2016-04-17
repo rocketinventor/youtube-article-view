@@ -76,15 +76,17 @@ function getContent(id, lang) {
       // Show description and note the lack of a transcript
       content.innerHTML = "<b> Description below: <b></b></b><br> (<em>No transcript found in your language: " + (lName(lang) || lang) + ". </em>Description shown instead).";
       getLangs(id).then(function(value) {
-        console.log(value); // Success!
-        content.innerHTML += "<br><br>This article might be avaliable in: ";
-        value.forEach(function(row, i) {
-          var list = " <a href=\"" + row.hash + "\">" + row.name + "</a>";
-          if (i > 0) {
-            list = "," + list;
-          }
-          content.innerHTML += list;
-        })
+        if (value.length > 0) {
+          console.log(value); // Success!
+          content.innerHTML += "<br><br>This article might be avaliable in: ";
+          value.forEach(function(row, i) {
+            var list = " <a href=\"" + row.hash + "\">" + row.name + "</a>";
+            if (i > 0) {
+              list = "," + list;
+            }
+            content.innerHTML += list;
+          })
+        }
       }, function(reason) {
         console.log(reason); // Error!
       });
