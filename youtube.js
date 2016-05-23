@@ -278,7 +278,7 @@ function search() {
   }
   else {
     hideSearch();
-    location.hash = "#"+q.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)[2];
+    location.hash = "#/video/"+q.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)[2];
   }
   options[0].checked = true;
 }
